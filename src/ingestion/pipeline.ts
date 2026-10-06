@@ -3,28 +3,26 @@ import path from 'node:path';
 import { gzipSync } from 'node:zlib';
 import { config } from '../config';
 import type { Chunk, DocumentRecord } from '../types';
-import { chunkDocument } from './chunker';
+import { chunkDocument, htmlToText } from './chunker';
 import { embedTexts, dimensions } from '../retrieval/embeddings';
 import { replaceChunks, exportIndex } from '../retrieval/store';
 export function documents(): DocumentRecord[] {
   return JSON.parse(fs.readFileSync(path.resolve('fixtures/documents/manifest.json'), 'utf8'));
 }
-export function readDocument(doc: DocumentRecord) {
+function readDocumentSource(doc: DocumentRecord) {
   const root = path.resolve('fixtures/documents');
   const filename = path.resolve(root, doc.file);
   if (!filename.startsWith(root + path.sep)) throw new Error('Invalid document path.');
-  let text = fs.readFileSync(filename, 'utf8');
-  if (filename.endsWith('.html'))
-    text = text
-      .replace(/<script[\s\S]*?<\/script>/gi, '')
-      .replace(/<[^>]+>/g, ' ')
-      .replace(/&nbsp;/g, ' ')
-      .replace(/&amp;/g, '&');
-  return text.replace(/\r\n/g, '\n');
+  return fs.readFileSync(filename, 'utf8').replace(/\r\n?/g, '\n');
+}
+export function readDocument(doc: DocumentRecord) {
+  const text = readDocumentSource(doc);
+  return path.extname(doc.file).toLowerCase() === '.html' ? htmlToText(text) : text;
 }
 export async function ingest(onProgress: (value: string) => void = () => {}) {
   const docs = documents();
-  const chunks: Chunk[] = docs.flatMap((doc) => chunkDocument(doc, readDocument(doc)));
+  // Preserve source structure until the format-aware chunker has segmented it.
+  const chunks: Chunk[] = docs.flatMap((doc) => chunkDocument(doc, readDocumentSource(doc)));
   onProgress(`${docs.length} documents · ${chunks.length} chunks`);
   const vectors = await embedTexts(chunks.map((c) => c.text));
   const complete = chunks.map((c, i) => ({ ...c, vector: vectors[i] }));
