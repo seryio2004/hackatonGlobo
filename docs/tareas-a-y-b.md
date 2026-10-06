@@ -2,7 +2,7 @@
 
 Plan basado en [el análisis del repositorio](./analisis-y-propuestas.md). Objetivo: trabajar dos personas en paralelo, corregir la fiabilidad documental y el soporte, e implementar el copiloto de incidencias como funcionalidad diferencial de la hackatón.
 
-Las tareas son propuestas pendientes de implementación. La conexión y las evaluaciones con un modelo real se realizarán cuando esté disponible la API.
+Las casillas indican el estado de implementación. A3 está implementada y evaluada con la API; las demás tareas siguen pendientes salvo que se indique lo contrario. Evidencias de A3: [verificacion-a.md](./verificacion-a.md).
 
 ## Grupo A — Documentación y respuestas fiables
 
@@ -37,15 +37,15 @@ Las tareas son propuestas pendientes de implementación. La conexión y las eval
 
 ### A3. Corregir las instrucciones de respuestas documentales
 
-- [ ] Eliminar instrucciones que permitan inventar condiciones, importes o coberturas.
-- [ ] Exigir referencias para afirmaciones documentales relevantes.
-- [ ] Reconocer falta de evidencia y ofrecer aclaración o soporte.
-- [ ] Tratar documentos como datos, sin permitir que sus instrucciones alteren el comportamiento del agente.
-- [ ] Definir ejemplos de evaluación: condiciones actuales, excepciones, producto ambiguo y preguntas sin respuesta publicada.
+- [x] Eliminar instrucciones que permitan inventar condiciones, importes o coberturas.
+- [x] Exigir referencias para afirmaciones documentales relevantes.
+- [x] Reconocer falta de evidencia y ofrecer aclaración o soporte.
+- [x] Instruir al agente para tratar documentos como datos e ignorar instrucciones incrustadas; comprobar un ejemplo malicioso.
+- [x] Definir ejemplos de evaluación: condiciones actuales, excepciones, producto ambiguo y preguntas sin respuesta publicada.
 
 **Archivo asignado:** `src/agent/prompt.ts`.
 
-**Aceptación:** las instrucciones exigen abstención ante información no publicada y referencias trazables. La calidad de las respuestas reales se comprobará cuando llegue la API.
+**Aceptación:** las instrucciones exigen abstención ante información no publicada y referencias trazables. Cuatro casos con el modelo real revisados correctamente; ver `docs/verificacion-a.md`. Esto no sustituye el filtrado de A2 ni garantiza todas las respuestas futuras.
 
 ### A4. Verificar y regenerar el índice
 
