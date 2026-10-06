@@ -2,7 +2,7 @@
 
 Plan basado en [el análisis del repositorio](./analisis-y-propuestas.md). Objetivo: trabajar dos personas en paralelo, corregir la fiabilidad documental y el soporte, e implementar el copiloto de incidencias como funcionalidad diferencial de la hackatón.
 
-Las casillas indican el estado de implementación. A3 está implementada y evaluada con la API; las demás tareas siguen pendientes salvo que se indique lo contrario. Evidencias de A3: [verificacion-a.md](./verificacion-a.md).
+Las casillas indican el estado de implementación. Una tarea completada se marca con `finish` en su encabezado. A3 está implementada y evaluada con la API; las demás tareas siguen pendientes salvo que se indique lo contrario. Evidencias de A3: [verificacion-a.md](./verificacion-a.md).
 
 ## Grupo A — Documentación y respuestas fiables
 
@@ -35,7 +35,7 @@ Las casillas indican el estado de implementación. A3 está implementada y evalu
 
 **Aceptación:** una consulta actual no utiliza condiciones archivadas; una consulta histórica recupera la versión aplicable a su fecha. No seleccionar una versión únicamente porque tenga el número más alto.
 
-### A3. Corregir las instrucciones de respuestas documentales
+### A3. Corregir las instrucciones de respuestas documentales — finish
 
 - [x] Eliminar instrucciones que permitan inventar condiciones, importes o coberturas.
 - [x] Exigir referencias para afirmaciones documentales relevantes.
